@@ -28,7 +28,8 @@ namespace MyNote.API.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            Configuration.ProxyCreationEnabled = false;
+            // XML Serialization hatasını ve Circular Referencing Loop hatasını çözer
+            // Configuration.ProxyCreationEnabled = false;
         }
 
         public static ApplicationDbContext Create()
