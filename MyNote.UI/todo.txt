@@ -1,0 +1,6 @@
+﻿== TODOS ==
+
+sayfa ilk açıldığında giriş yapmış mı bak ona göre page(login,app) göster
+
+login olduktan sonra login gizle app göster
+
