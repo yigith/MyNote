@@ -1,5 +1,7 @@
 ﻿// GLOBALS
 var apiUrl = "https://localhost:44392/";
+var selectedNote = null;
+var selectedLink = null;
 
 // FUNCTIONS
 function checkLogin() {
@@ -11,7 +13,7 @@ function checkLogin() {
     }
 
     // is token valid?
-    ajax("api/Account/UserInfo", "GET",
+    ajax("api/Account/UserInfo", "GET", null,
         function (data) {
             showAppPage();
         },
@@ -26,7 +28,7 @@ function showAppPage() {
     $(".page").hide();
 
     // retrieve the notes
-    ajax("api/Notes/List", "GET",
+    ajax("api/Notes/List", "GET", null,
         function (data) {
 
             $("#notes").html("");
@@ -60,14 +62,28 @@ function getAuthHeader() {
     return { Authorization: "Bearer " + getLoginData().access_token };
 }
 
-function ajax(url, type, successFunc, errorFunc) {
+function ajax(url, type, data, successFunc, errorFunc) {
     $.ajax({
         url: apiUrl + url,
         type: type,
+        data: data,
         headers: getAuthHeader(),
         success: successFunc,
         error: errorFunc
     });
+}
+
+function updateNote() {
+    ajax("api/Notes/Update/" + selectedNote.Id, "PUT",
+        { Id: selectedNote.Id, Title: $("#title").val(), Content: $("#content").val() },
+        function (data) {
+            selectedLink.note = data;
+            selectedLink.text = data.Title;
+        },
+        function () {
+
+        }
+    );
 }
 
 function getLoginData() {
@@ -207,9 +223,24 @@ $("#btnLogout").click(function (event) {
 
 $("body").on("click", ".show-note", function (event) {
     event.preventDefault();
-    var note = this.note;
-    $("#title").val(note.Title);
-    $("#content").val(note.Content);
+    selectedLink = this;
+    selectedNote = this.note;
+    $("#title").val(selectedNote.Title);
+    $("#content").val(selectedNote.Content);
+
+    $(".show-note").removeClass("active");
+    $(this).addClass("active");
+});
+
+$("#frmNote").submit(function (event) {
+    event.preventDefault();
+
+    if (selectedNote) {
+        updateNote();
+    }
+    else {
+        addNote();
+    }
 });
 
 // ACTIONS
