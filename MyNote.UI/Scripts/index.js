@@ -10,25 +10,43 @@ function checkLogin() {
         return;
     }
 
-    // token'ı geçerli mi?
-    $.ajax({
-        url: apiUrl + "api/Account/UserInfo",
-        type: "GET",
-        headers: { Authorization: "Bearer " + loginData.access_token },
-        success: function (data) {
+    // is token valid?
+    ajax("api/Account/UserInfo", "GET",
+        function (data) {
             showAppPage();
         },
-        error: function () {
+        function () {
             showLoginPage();
-        }
-    });
+        });
 }
 
 function showAppPage() {
     $(".only-logged-out").hide();
     $(".only-logged-in").show();
     $(".page").hide();
-    $("#page-app").show();
+
+    // retrieve the notes
+    ajax("api/Notes/List", "GET",
+        function (data) {
+
+            $("#notes").html("");
+            for (var i = 0; i < data.length; i++) {
+
+                var a = $("<a/>")
+                    .attr("href", "#")
+                    .addClass("list-group-item list-group-item-action show-note")
+                    .text(data[i].Title)
+                    .prop("note", data[i]);
+
+                $("#notes").append(a);
+            }
+
+            // show page when it's ready
+            $("#page-app").show();
+        },
+        function () {
+
+        });
 }
 
 function showLoginPage() {
@@ -36,6 +54,20 @@ function showLoginPage() {
     $(".only-logged-out").show();
     $(".page").hide();
     $("#page-login").show();
+}
+
+function getAuthHeader() {
+    return { Authorization: "Bearer " + getLoginData().access_token };
+}
+
+function ajax(url, type, successFunc, errorFunc) {
+    $.ajax({
+        url: apiUrl + url,
+        type: type,
+        headers: getAuthHeader(),
+        success: successFunc,
+        error: errorFunc
+    });
 }
 
 function getLoginData() {
@@ -171,6 +203,13 @@ $("#btnLogout").click(function (event) {
     sessionStorage.removeItem("login");
     localStorage.removeItem("login");
     showLoginPage();
+});
+
+$("body").on("click", ".show-note", function (event) {
+    event.preventDefault();
+    var note = this.note;
+    $("#title").val(note.Title);
+    $("#content").val(note.Content);
 });
 
 // ACTIONS
