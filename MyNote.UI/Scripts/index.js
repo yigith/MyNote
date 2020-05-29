@@ -1,5 +1,6 @@
 ﻿// GLOBALS
-var apiUrl = "https://localhost:44392/";
+//var apiUrl = "https://localhost:44392/";
+var apiUrl = "https://mynoteapi.kod.fun/";
 var selectedNote = null;
 var selectedLink = null;
 

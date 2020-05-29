@@ -1,6 +1,5 @@
 ﻿== TODOS ==
 
-sayfa ilk açıldığında giriş yapmış mı bak ona göre page(login,app) göster
+thread.sleep if #debug
 
-login olduktan sonra login gizle app göster
-
+put delete options method cors
