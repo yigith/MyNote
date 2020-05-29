@@ -33,14 +33,7 @@ function showAppPage() {
 
             $("#notes").html("");
             for (var i = 0; i < data.length; i++) {
-
-                var a = $("<a/>")
-                    .attr("href", "#")
-                    .addClass("list-group-item list-group-item-action show-note")
-                    .text(data[i].Title)
-                    .prop("note", data[i]);
-
-                $("#notes").append(a);
+                addMenuLink(data[i]);
             }
 
             // show page when it's ready
@@ -49,6 +42,23 @@ function showAppPage() {
         function () {
 
         });
+}
+
+function addMenuLink(note, isActive = false) {
+    var a = $("<a/>")
+        .attr("href", "#")
+        .addClass("list-group-item list-group-item-action show-note")
+        .text(note.Title)
+        .prop("note", note);
+
+    if (isActive) {
+        $(".show-note").removeClass("active");
+        a.addClass("active");
+        selectedLink = a.get(0);
+        selectedNote = note;
+    }
+
+    $("#notes").prepend(a);
 }
 
 function showLoginPage() {
@@ -73,12 +83,24 @@ function ajax(url, type, data, successFunc, errorFunc) {
     });
 }
 
+function addNote() {
+    ajax("api/Notes/New", "POST",
+        { Title: $("#title").val(), Content: $("#content").val() },
+        function (data) {
+            addMenuLink(data, true);
+        },
+        function () {
+
+        }
+    );
+}
+
 function updateNote() {
     ajax("api/Notes/Update/" + selectedNote.Id, "PUT",
         { Id: selectedNote.Id, Title: $("#title").val(), Content: $("#content").val() },
         function (data) {
             selectedLink.note = data;
-            selectedLink.text = data.Title;
+            selectedLink.textContent = data.Title;
         },
         function () {
 
@@ -143,6 +165,14 @@ function resetLoginForms() {
     $("#login form").each(function () {
         this.reset();
     });
+}
+
+function resetNoteForm() {
+    selectedLink = null;
+    selectedNote = null;
+    $(".show-note").removeClass("active");
+    $("#title").val("");
+    $("#content").val("");
 }
 
 // EVENTS
@@ -216,9 +246,15 @@ $(".navbar-login a").click(function (event) {
 // logout
 $("#btnLogout").click(function (event) {
     event.preventDefault();
+    resetNoteForm();
     sessionStorage.removeItem("login");
     localStorage.removeItem("login");
     showLoginPage();
+});
+
+// clear selection and form
+$(".add-new-note").click(function () {
+    resetNoteForm();
 });
 
 $("body").on("click", ".show-note", function (event) {
@@ -240,6 +276,28 @@ $("#frmNote").submit(function (event) {
     }
     else {
         addNote();
+    }
+});
+
+// delete note
+$("#btnDelete").click(function () {
+    if (selectedNote) {
+        if (confirm("Are you sure to delete the selected note?")) {
+            ajax("api/Notes/Delete/" + selectedNote.Id, "DELETE", null,
+                function (data) {
+                    $(selectedLink).remove();
+                    resetNoteForm();
+                },
+                function () {
+
+                }
+            );
+        }
+    }
+    else {
+        if (confirm("Are you sure to delete the draft?")) {
+            resetNoteForm();
+        }
     }
 });
 
