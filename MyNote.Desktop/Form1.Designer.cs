@@ -47,7 +47,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 35);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 20);
             this.label1.TabIndex = 0;
@@ -55,7 +55,7 @@
             // 
             // txtUserName
             // 
-            this.txtUserName.Location = new System.Drawing.Point(12, 58);
+            this.txtUserName.Location = new System.Drawing.Point(16, 32);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(218, 26);
             this.txtUserName.TabIndex = 1;
@@ -63,7 +63,7 @@
             // 
             // btnListNotes
             // 
-            this.btnListNotes.Location = new System.Drawing.Point(460, 58);
+            this.btnListNotes.Location = new System.Drawing.Point(464, 32);
             this.btnListNotes.Name = "btnListNotes";
             this.btnListNotes.Size = new System.Drawing.Size(137, 26);
             this.btnListNotes.TabIndex = 2;
@@ -73,7 +73,7 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(236, 58);
+            this.txtPassword.Location = new System.Drawing.Point(240, 32);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(218, 26);
             this.txtPassword.TabIndex = 4;
@@ -83,7 +83,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(232, 35);
+            this.label2.Location = new System.Drawing.Point(236, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 20);
             this.label2.TabIndex = 3;
@@ -93,24 +93,25 @@
             // 
             this.lstNotes.FormattingEnabled = true;
             this.lstNotes.ItemHeight = 20;
-            this.lstNotes.Location = new System.Drawing.Point(12, 126);
+            this.lstNotes.Location = new System.Drawing.Point(16, 100);
             this.lstNotes.Name = "lstNotes";
-            this.lstNotes.Size = new System.Drawing.Size(206, 224);
+            this.lstNotes.Size = new System.Drawing.Size(206, 244);
             this.lstNotes.TabIndex = 7;
             this.lstNotes.SelectedIndexChanged += new System.EventHandler(this.lstNotes_SelectedIndexChanged);
             // 
             // txtNote
             // 
-            this.txtNote.Location = new System.Drawing.Point(224, 126);
+            this.txtNote.Location = new System.Drawing.Point(228, 100);
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(377, 224);
+            this.txtNote.ReadOnly = true;
+            this.txtNote.Size = new System.Drawing.Size(377, 244);
             this.txtNote.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 103);
+            this.label4.Location = new System.Drawing.Point(16, 77);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 20);
             this.label4.TabIndex = 9;
@@ -119,7 +120,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(220, 103);
+            this.label5.Location = new System.Drawing.Point(224, 77);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(70, 20);
             this.label5.TabIndex = 10;
@@ -129,7 +130,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(613, 359);
+            this.ClientSize = new System.Drawing.Size(624, 359);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtNote);
