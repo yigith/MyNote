@@ -1,5 +1,1 @@
 ﻿== TODOS ==
-
-thread.sleep if #debug
-
-put delete options method cors
