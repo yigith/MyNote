@@ -1,6 +1,7 @@
 ﻿== TODOS ==
 
-register başarı / hata mesaj göster
-$watch sekme değişince formları ve hata mesajları temizle
+logout
 
-login ..
+redirect (sayfa görünmeden)
+
+register login gizle
